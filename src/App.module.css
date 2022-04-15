@@ -1,0 +1,10 @@
+.bodyGrid{
+    display: grid;
+    grid-template-rows: repeat(8, auto);
+    text-align: center;
+}
+
+.columnTitles{
+    display: grid;
+    grid-template-columns: repeat(6, calc(100%/6));
+}
