@@ -1,18 +1,36 @@
 .diceRow{
-    display: grid;
-    grid-template-columns: repeat(6, calc(100%/6));
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    border: 2px solid #000;
+    border-bottom: none;
+    padding: 8px;
+    align-items: center;
+    background-color:antiquewhite;
+}
+
+.diceRow:last-child{
+    border-bottom: 2px solid #000;
+}
+
+.diceRow form{
+    flex-grow: 1;
+    display: inline-grid;
+    grid-template-columns: repeat(5, auto);
+    justify-items: center;
+    align-items: center;
 }
 
 .numberOfDice{
 
 }
 
-.modifierDirection form{
+.modifierDirection{
     display: flex;
     flex-direction: column;
 }
 
-.modifierApplication form{
+.modifierApplication{
     display: flex;
     flex-direction: column;
 }
@@ -21,11 +39,13 @@
 
 }
 
-.roll{
-
+.roll button{
+    padding: 6px 10px;
 }
 
 
 .results{
-
+    width: 12%;
+    text-align: center;
+    font-weight: bold;
 }

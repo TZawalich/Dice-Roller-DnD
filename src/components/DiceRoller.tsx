@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import styles from "./DiceRoller.module.css"
 
 const DiceRoller = (props: { dice: number, passRoll: Function }) => {
@@ -31,7 +31,8 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
         setModifierApplication(e.target.value);
     }
 
-    const rollHandler = (dice: number, numberOfDice: number | string, modifier: number | string, modifierDirection: string, modifierApplication: string) => {
+    const rollHandler: FormEventHandler<HTMLFormElement> = (e) => {
+        e.preventDefault();
         let diceNumberCheck: number;
         let modifierCheck: number;
         let rolls = [];
@@ -50,11 +51,12 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
             for (let i = 0; i < diceNumberCheck; i++) { rolls.push(minMaxRoller(1, dice)) }
             modifiedRolls = [...rolls, modifierCheck]
         }
-
-        const result = modifiedRolls.reduce((acc, val) => acc + val, 0);
-
+ 
+        let result: number;
+        diceNumberCheck === 0 ? result = modifierCheck : result = modifiedRolls.reduce((acc, val) => acc + val, 0);
+        
         setResults(result);
-        props.passRoll({ result, rolls, modifierApplication, modifier })
+        props.passRoll({ result, rolls, modifierApplication, modifier, dice, modifierDirection })
     }
 
     function minMaxRoller(min: number, max: number) {
@@ -63,6 +65,7 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
 
     return (
         <div className={styles.diceRow}>
+            <form onSubmit={rollHandler}>
             <div className={styles.numberOfDice}>
                 <label>
                     <input
@@ -72,11 +75,10 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
                         placeholder="0"
                         onChange={setNumberHandler}
                     />
-                    d{dice}
+                    &nbsp;d{dice}
                 </label>
             </div>
             <div className={styles.modifierDirection}>
-                <form>
                     <label>
                         <input
                             type="radio"
@@ -97,10 +99,10 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
                         />
                         -
                     </label>
-                </form>
             </div>
             <div className={styles.modifier}>
                 <label>
+                {modifierDirection === "+" ? "+" : "-" } &nbsp;
                     <input
                         type="number"
                         value={modifier}
@@ -109,12 +111,10 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
                         placeholder="0"
                         onChange={setModifierHandler}
                     />
-                    Modifier
                 </label>
 
             </div>
             <div className={styles.modifierApplication}>
-                <form>
                     <label>
                         <input
                             type="radio"
@@ -123,7 +123,7 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
                             onChange={setModifierApplicationHandler}
                             checked={modifierApplication === "all"}
                         />
-                        Add modifier to each die ex. 5(d4+1)
+                        Add to each die
                     </label>
                     <label>
                         <input
@@ -133,13 +133,13 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
                             onChange={setModifierApplicationHandler}
                             checked={modifierApplication === "once"}
                         />
-                        Add modifier after rolling ex. (5d4)+1
+                        Add after rolling dice
                     </label>
-                </form>
             </div>
             <div className={styles.roll}>
-                <button onClick={() => rollHandler(dice, numberOfDice, modifier, modifierDirection, modifierApplication)}>Roll</button>
+                <button type="submit">Roll</button>
             </div>
+            </form>
             <div className={styles.results}>
                 {results}
             </div>
