@@ -8,7 +8,7 @@ import { randomFillSync } from 'crypto';
 
 interface rollInfo {
   dice: number,
-  modifier: number|string,
+  modifier: number | string,
   modifierApplication: string,
   result: number,
   rolls: number[],
@@ -24,7 +24,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <Header />
       <div className={styles.rollerBody}>
         <div className={styles.columnTitles}>
@@ -45,23 +45,25 @@ function App() {
       </div>
       <div className={styles.rollResults}>
         <h4>Roll History</h4>
-        {results.map((turn, index) => {
-          return (
-            <div key={index} className={styles.rollTurn}>
-              {turn.modifierApplication === "once" ?
-                <>
-                  <p>You rolled <b>({turn.rolls.length}d{turn.dice}){turn.modifier !== "" && turn.modifierDirection}{turn.modifier}</b> for a total of <b>{turn.result}</b></p>
-                  <p>Your rolls were: {`[ ${turn.rolls.map(x => ` ${x} `)}]`} {turn.modifier !== "" && turn.modifierDirection} {turn.modifier} = {turn.result}</p>
-                </>
-                :
-                <>
-                  <p>You rolled <b>{turn.rolls.length}(d{turn.dice}{turn.modifier !== "" && turn.modifierDirection}{turn.modifier})</b> for a total of <b>{turn.result}</b></p>
-                  <p>Your rolls were: {`[ ${turn.rolls.map(x => ` ${x}${turn.modifier !== "" ? turn.modifierDirection : ""}${turn.modifier} `)}]`} = {turn.result}</p>
-                </>
-              }
-            </div>
-          )
-        })}
+        <div className={styles.resultHolder}>
+          {results.map((turn, index) => {
+            return (
+              <div key={index} className={styles.rollTurn}>
+                {turn.modifierApplication === "once" ?
+                  <>
+                    <p>You rolled <b>({turn.rolls.length}d{turn.dice}){turn.modifier !== "" && turn.modifierDirection}{turn.modifier}</b> for a total of <b>{turn.result}</b></p>
+                    <p>Your rolls were: {`[ ${turn.rolls.map(x => ` ${x} `)}]`} {turn.modifier !== "" && turn.modifierDirection} {turn.modifier} = {turn.result}</p>
+                  </>
+                  :
+                  <>
+                    <p>You rolled <b>{turn.rolls.length}(d{turn.dice}{turn.modifier !== "" && turn.modifierDirection}{turn.modifier})</b> for a total of <b>{turn.result}</b></p>
+                    <p>Your rolls were: {`[ ${turn.rolls.map(x => ` ${x}${turn.modifier !== "" ? turn.modifierDirection : ""}${turn.modifier} `)}]`} = {turn.result}</p>
+                  </>
+                }
+              </div>
+            )
+          })}
+        </div>
       </div>
       <Footer />
     </div>

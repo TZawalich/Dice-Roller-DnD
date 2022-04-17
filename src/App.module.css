@@ -1,8 +1,15 @@
+.App{
+    min-height: 100vh;
+    background-image: url("../public/DragonSmall.png");
+    overflow-y: auto;
+}
+
 .rollerBody{
     display: flex;
     flex-direction: column;
     max-width: 900px;
     margin: 24px auto;
+    border: 2px solid #fff;
 }
 
 .columnTitles{
@@ -17,10 +24,16 @@
     font-size: 1.1rem;
 }
 
+.resultHolder{
+    min-height: 40vh;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
 .rollResults{
     max-width: 900px;
     margin: 24px auto;
-    border: 2px solid #000;
+    border: 2px solid #fff;
     box-sizing: border-box;
     background-color:antiquewhite;
 }
