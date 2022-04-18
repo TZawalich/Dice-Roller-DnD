@@ -9,6 +9,10 @@
     background-color:antiquewhite;
 }
 
+input{
+    max-width: 80px
+}
+
 .diceRow:last-child{
     border-bottom: 2px solid #000;
 }
