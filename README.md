@@ -10,3 +10,6 @@ Select dice type, modifiers, etc, and roll your dice -- the result will be kept 
 
 ## Dragon
 I drew this in paint to capture the feel of the mid 90's
+
+## Check It Out
+If you like: https://effortless-pasca-ec385c.netlify.app
