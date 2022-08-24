@@ -36,6 +36,10 @@
     overflow-y: auto;
 }
 
+.resultHolder > Div:first-child{
+    border-bottom: 6px solid #000;
+}
+
 .rollResults{
     max-width: 900px;
     margin: 24px auto;
