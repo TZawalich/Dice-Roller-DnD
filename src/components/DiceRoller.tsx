@@ -3,7 +3,7 @@ import styles from "./DiceRoller.module.css"
 
 const DiceRoller = (props: { dice: number, passRoll: Function }) => {
     const [dice, setDice] = useState<number>(props.dice)
-    const [numberOfDice, setNumberOfDice] = useState<number | string>('')
+    const [numberOfDice, setNumberOfDice] = useState<number | string>(1)
     const [modifier, setModifier] = useState<number | string>('')
     const [modifierDirection, setModifierDirection] = useState<string>("+")
     const [modifierApplication, setModifierApplication] = useState<string>("once")
@@ -13,8 +13,8 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
     const setNumberHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
         e.preventDefault();
         console.log(+e.currentTarget.value)
-        if (isNaN(+e.currentTarget.value)) { setNumberOfDice(0) }
-        else { setNumberOfDice(+e.currentTarget.value) };
+        if (isNaN(+e.currentTarget.value) || +e.currentTarget.value === 0) { setNumberOfDice(1) }
+        else { setNumberOfDice(e.currentTarget.value) };
     }
     const setModifierHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
         e.preventDefault();
@@ -22,12 +22,10 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
         else { setModifier(+e.currentTarget.value) };
     }
     const setModifierDirectionHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-        console.log(e.target.value)
         setModifierDirection(e.target.value);
     }
 
     const setModifierApplicationHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-        console.log(e.target.value)
         setModifierApplication(e.target.value);
     }
 
@@ -38,7 +36,7 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
         let rolls = [];
         let modifiedRolls: number[];
 
-        diceNumberCheck = isNaN(+numberOfDice) ? 0 : +numberOfDice; //check if not a number, if string, set to zero, otherwise set to diceNumberCheck var for futher checks
+        diceNumberCheck = isNaN(+numberOfDice) ? 1 : +numberOfDice; //check if not a number, if string, set to one, otherwise set to diceNumberCheck var for futher checks
         modifierCheck = isNaN(+modifier) ? 0 : +modifier;
 
         diceNumberCheck = diceNumberCheck > 500 ? 500 : diceNumberCheck; //stop these kids from rolling more than 500 dice at once
@@ -71,8 +69,8 @@ const DiceRoller = (props: { dice: number, passRoll: Function }) => {
                     <input
                         type="number"
                         value={numberOfDice}
-                        min={0} max={500}
-                        placeholder="0"
+                        min={1} max={500}
+                        placeholder="1"
                         onChange={setNumberHandler}
                     />
                     &nbsp;d{dice}

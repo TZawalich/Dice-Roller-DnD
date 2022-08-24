@@ -25,10 +25,6 @@ input{
     align-items: center;
 }
 
-.numberOfDice{
-
-}
-
 .modifierDirection{
     display: flex;
     flex-direction: column;
@@ -37,10 +33,6 @@ input{
 .modifierApplication{
     display: flex;
     flex-direction: column;
-}
-
-.modifier{
-
 }
 
 .roll button{

@@ -4,7 +4,6 @@ import styles from "./App.module.css"
 import Header from './Header';
 import Footer from './Footer';
 import DiceRoller from './components/DiceRoller';
-import { randomFillSync } from 'crypto';
 
 interface rollInfo {
   dice: number,
